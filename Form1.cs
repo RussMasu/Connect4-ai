@@ -16,6 +16,7 @@ namespace Connect4
         public Form1()
         {
             InitializeComponent();
+            turnOrder();
             button1.MouseDoubleClick += button1_Click;
             button2.MouseDoubleClick += button2_Click;
             button3.MouseDoubleClick += button3_Click;
@@ -45,7 +46,23 @@ namespace Connect4
             }
             return imagepath;
         }
-
+        private void turnOrder()
+        {
+            Random random = new Random();
+            if (random.Next(2) == 0)
+            {
+                label1.Text = "Player 2 goes first";
+                //ai move
+                int aiMove = Ai.getBestMove(2);
+                Board.playPiece(aiMove, 2);
+                //update board
+                updateBoard();
+            }
+            else
+            {
+                label1.Text = "Player 1 goes first";
+            }
+        }
         private void updateBoard()
         {
             PictureBox[,] boxes = new PictureBox[,] {
